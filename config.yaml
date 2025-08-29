@@ -2,27 +2,29 @@
 
 timeframes:
   "15m":
-    delta_pct: 1.6        # % move vs previous closed 15m candle
-    vol_mult: 3.0         # volume multiple vs EMA(volume)
-    min_notional: 80000   # USDT traded in the candle
-    ema_len: 20           # EMA length for volume
-    cooldown_min: 20      # cooldown minutes per symbol/tf
+    delta_pct: 1.4        # was 1.6 (loosen a bit since new filters cut noise)
+    vol_mult: 2.6         # was 3.0
+    min_notional: 80000
+    ema_len: 20
+    cooldown_min: 20
+
   "30m":
-    delta_pct: 2.4
-    vol_mult: 2.4
+    delta_pct: 2.2        # was 2.4
+    vol_mult: 2.2         # was 2.4
     min_notional: 120000
     ema_len: 24
     cooldown_min: 30
+
   "1h":
-    delta_pct: 3.5
-    vol_mult: 2.0
+    delta_pct: 3.2        # was 3.5
+    vol_mult: 1.9         # was 2.0
     min_notional: 200000
     ema_len: 30
     cooldown_min: 60
 
 tiers:
   A:
-    vol_mult_adj: -0.6    # big caps: lower mult, higher notional
+    vol_mult_adj: -0.6    # big caps: easier volume bar, higher notional
     min_notional: 300000
     delta_pct_adj: 0.0
   B:
@@ -30,7 +32,7 @@ tiers:
     min_notional: 120000
     delta_pct_adj: 0.0
   C:
-    vol_mult_adj: 0.5     # small caps: stronger filter
+    vol_mult_adj: 0.5     # small caps: stricter
     min_notional: 60000
     delta_pct_adj: 0.8
 
@@ -41,6 +43,6 @@ symbols:
   SOLUSDT: { tier: A }
 
 quality_filters:
-  min_body_ratio: 0.5     # candle body >= 50% of range
-  max_spread_pct: 0.25    # skip if orderbook spread too high
-  debounce_sec: 20        # signal must persist before firing
+  min_body_ratio: 0.5
+  max_spread_pct: 0.25
+  debounce_sec: 20
